@@ -8,12 +8,13 @@ is_directed = True
 p = 2
 q = 1
 num_walks = 100
-walk_length = 80
+# walk_length = 80
+walk_length = [40, 160]
 dimensions = 8
 window_size = 10
 epochs = 1000
 Adj_file = 'data/link_data.txt'
-SE_file = 'data/SE.txt'
+# SE_file = 'data/SE.txt'
 
 def read_graph(edgelist):
     G = nx.read_edgelist(
@@ -36,7 +37,9 @@ G = node2vec.Graph(nx_G, is_directed, p, q)
 G.preprocess_transition_probs()
 print('simulate walks')
 print(time.time())
-walks = G.simulate_walks(num_walks, walk_length)
-print('learn embeddings')
-print(time.time())
-learn_embeddings(walks, dimensions, SE_file)
+for walk_len in walk_length:
+    SE_file = f'data/SE{walk_len}.txt'
+    walks = G.simulate_walks(num_walks, walk_len)
+    print('learn embeddings')
+    print(time.time())
+    learn_embeddings(walks, dimensions, SE_file)
