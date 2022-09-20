@@ -66,6 +66,8 @@ class Graph():
 		q = self.q
 
 		unnormalized_probs = []
+  
+
 		for dst_nbr in sorted(G.neighbors(dst)):
 			if dst_nbr == src:
 				unnormalized_probs.append(G[dst][dst_nbr]['weight']/p)
